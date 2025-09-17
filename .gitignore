@@ -1,0 +1,16 @@
+# Environment files
+venv/
+env/
+.env
+
+# images
+assets/generated-images/
+
+# Other
+*.idea/
+*.ipynb_checkpoints/
+*.ipynb
+*__pycache__/
+
+
+
