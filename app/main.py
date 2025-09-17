@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from app.services.imagen_service import generate_image
 from app.services.save_image import save_image
 
-app = FastAPI(title="Genima")
+app = FastAPI(title="Genime-Backend")
 
 class GenerateRequest(BaseModel):
     prompt: str
