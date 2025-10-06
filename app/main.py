@@ -8,7 +8,7 @@ from app.services.imagen_service import generate_image
 app = FastAPI(title="Genime-Backend")
 
 # CORS setup
-origins = ["http://127.0.0.1:5500", "http://localhost:5500"]
+origins = ["http://127.0.0.1:3000", "http://localhost:3000"]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
