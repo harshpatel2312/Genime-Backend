@@ -140,7 +140,6 @@ Avoid using `origins = ["*"]` in production — it allows **any** site to make r
 - Store image metadata in **PostgreSQL**
 - Integrate **Celery + Redis** for background tasks
 - Add more endpoints (`/gallery`, `/auth`, etc.)
-- Connect to **Genime-Frontend** repo
 
 ---
 
