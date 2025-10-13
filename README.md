@@ -66,6 +66,56 @@ Genime-Backend/
 
 ---
 
+---
+
+## 🌐 CORS Configuration ([Genime-Frontend](https://github.com/harshpatel2312/Genime-Frontend) Connection)
+
+**Genime-Backend**vserver is configured to communicate securely with the **[Genime-Frontend](https://github.com/harshpatel2312/Genime-Frontend)** Express app through CORS (Cross-Origin Resource Sharing).  
+CORS ensures browsers allow requests between your backend (`localhost:8000`) and frontend (`localhost:<port>`).
+
+### Default CORS Setup (in `app/main.py`)
+```python
+from fastapi.middleware.cors import CORSMiddleware
+
+origins = [
+    "http://127.0.0.1:3000",
+    "http://localhost:3000"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+```
+
+### 🧩 Configuring for [Genime-Frontend](https://github.com/harshpatel2312/Genime-Frontend)
+
+In the **Express app**, you might be running on a different port (e.g. 5080 or 5173).  
+Update the `origins` list in your backend to match the actual frontend port:
+```python
+origins = [
+    "http://127.0.0.1:8080",   # Express local port
+    "http://localhost:8080"
+]
+```
+
+### 🌍 Example for Production
+
+When deployed, replace localhost URLs with your hosted frontend domain:
+```python
+origins = [
+    "https://genime-frontend.vercel.app",
+    "https://genime.app"
+]
+```
+> ⚠️ **Important**:  
+Avoid using `origins = ["*"]` in production — it allows **any** site to make requests to your API, which is a security risk.
+
+---
+
 ## 🛠️ How Images Are Saved
 
 - Images are returned by the Imagen API as raw **PNG bytes**.
