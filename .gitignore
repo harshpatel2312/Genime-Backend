@@ -12,5 +12,6 @@ assets/generated-images/
 *.ipynb
 *__pycache__/
 
-
+# Admin
+firebase-admin-key.json
 

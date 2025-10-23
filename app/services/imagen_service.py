@@ -1,6 +1,9 @@
 import os
 from google.genai import types, Client
 from dotenv import load_dotenv
+import logging
+
+logger = logging.getLogger(__name__)
 
 # Load env variables
 load_dotenv()
@@ -14,7 +17,7 @@ def generate_image(prompt: str, n: int = 1):
         Generate image using Imagen
     """
     try:
-        print(f"Generating {n} image(s) for: {prompt}")
+        logger.info(f"Generating {n} image(s) for: {prompt}")
 
         response = client.models.generate_images(
             model="imagen-4.0-generate-001",
@@ -24,10 +27,10 @@ def generate_image(prompt: str, n: int = 1):
             )
         )
 
-        print("✅ Image(s) generated successfully!")
+        logger.info("Image(s) generated successfully!")
         return response
 
     except Exception as e:
-        print(f"❌ An error occurred during image generation: {e}")
+        logger.info(f"❌ An error occurred during image generation: {e}")
         return None
 

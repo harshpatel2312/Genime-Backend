@@ -3,3 +3,6 @@ google-genai
 fastapi
 uvicorn
 Pillow
+firebase-admin
+pydantic
+passlib[bcrypt]
