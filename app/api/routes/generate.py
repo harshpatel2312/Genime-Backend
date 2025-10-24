@@ -17,6 +17,7 @@ async def generate(req: GenerateRequest):
     try:
         logger.info(f"Routes------/generate------active")
         result = generate_image(req.prompt, req.number_of_images)
+        #print(f"Imagen------Raw Result\n{result}")
         images_base64 = []
 
         if result is not None:

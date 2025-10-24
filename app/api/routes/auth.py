@@ -74,7 +74,13 @@ async def login_user(req: LoginRequest):
         if "idToken" not in data:
             raise HTTPException(status_code=401, detail=data.get("error", {}).get("message", "Invalid credentials"))
 
-        return {"status": "success", "idToken": data["idToken"], "email": req.email}
+        # Retrieve username from firestore
+        user_docs = db.collection("users").where("email", "==", req.email).get()
+        username = None
+        if user_docs:
+              username = user_docs[0].to_dict().get("username")
+
+        return {"status": "success", "idToken": data["idToken"], "user": {"username": username or req.email}}
 
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
