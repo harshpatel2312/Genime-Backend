@@ -14,14 +14,22 @@ This repo contains the **FastAPI backend**, responsible for:
 Genime-Backend/
 │
 ├── app/
-│   ├── main.py # FastAPI entry point
+|   ├── api/
+│       ├── routes/
+|           ├── auth.py
+|           ├── generate.py
+|   ├── core/
+│       ├── firebase_config.py
 │   └── services/
 │       └── imagen_service.py # Imagen client + save helpers
+│       ├── save_image.py # FastAPI entry point
+│   ├── main.py # FastAPI entry point
 │
 ├── assets/
 ├   └── generated_images/ # Saved images (auto-created)
 |
 ├── .env # Stores your API key
+├──  firebase-admin-key.json # Your Firebase Admin Key
 ├── requirements.txt # Python dependencies
 └── README.md
 ```
@@ -49,6 +57,8 @@ Genime-Backend/
 3. Create `.env` file in project root:
    ```python
      IMAGEN_API_KEY=your_api_key_here
+     FIRESTORE_API_KEY=your_firebase_api_key
+     DATABASE_ID=your_database_id # usually the name of the database
    ```
 
 4. Run the server:
