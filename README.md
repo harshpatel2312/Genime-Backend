@@ -3,7 +3,8 @@
 Backend service for the **Genime** project — a full-scale web app (like *nano banana*) using **Google Imagen-4** for **Anime-Style** generation.  
 
 This repo contains the **FastAPI backend**, responsible for:
-- Handling API requests  
+- Handling API requests
+- Managing user authentication and Firestore database access  
 - Calling Imagen-4 model to generate images  
 - Saving images locally (for now; cloud storage will be added later)  
 
@@ -29,7 +30,7 @@ Genime-Backend/
 ├   └── generated_images/ # Saved images (auto-created)
 |
 ├── .env # Stores your API key
-├──  firebase-admin-key.json # Your Firebase Admin Key
+├──  firebase-admin-key.json # Firebase Admin Key (see instructions below)
 ├── requirements.txt # Python dependencies
 └── README.md
 ```
@@ -61,7 +62,12 @@ Genime-Backend/
      DATABASE_ID=your_database_id # usually the name of the database
    ```
 
-4. Run the server:
+4. Download your Firebase Admin Key:
+   - Go to [Firebase Console → Project Settings → Service Accounts](https://console.firebase.google.com/)
+   - Click **Generate New Private Key**
+   - Save the JSON file as `firebase-admin-key.json` in your project root
+
+6. Run the server:
    ```bash
      uvicorn app.main:app --reload
    ```
@@ -72,9 +78,9 @@ Genime-Backend/
 
 | Method | Endpoint     | Description                                                | Request Body Example | Response Example |
 |--------|-------------|------------------------------------------------------------|----------------------|------------------|
-| POST   | `/generate` | Generate one or more images from a text prompt using Imagen-4 and save them locally | ```json { "prompt": "Robot holding a red skateboard", "number_of_images": 1 } ``` | ```json { "status": "success", "files": ["assets/generated_images/20250916_175422.png"], "count": 1 } ``` |
-
----
+| POST   | `/generate` | Generate one or more images from a text prompt using Imagen-4 and save them locally | ```json { "prompt": "Robot holding a red skateboard", "number_of_images": 1 } ``` | ```json { "status": "success", "files": ["assets/generated_images/20250916_175422.png"], "count": 1 } ``` |  
+| POST   | `/auth/signup` | Register a new user in Firebase Authentication and Firestore | ```json { "email": "testuser@gmail.com", "password": "password123", "username": "TestUser" }``` | ```json { "status": "success", "message": "User created successfully", "uid": "Zc9DkKJt5t..." } ``` |
+| POST   | `/auth/login` | Log in an existing Firebase user and return an ID token. | ```json { "email": "testuser@gmail.com", "password": "password123" }``` | ```json { "status": "success", "idToken": "<JWT_TOKEN>", "email": "testuser@gmail.com" } ``` |
 
 ---
 
@@ -157,3 +163,5 @@ Avoid using `origins = ["*"]` in production — it allows **any** site to make r
 - [FastAPI Documentation](https://fastapi.tiangolo.com/)
 - [Google Imagen Documentation](https://ai.google.dev/gemini-api/docs/imagen)
 - [Pillow (PIL) Docs](https://pillow.readthedocs.io/en/stable/)
+- [Firebase Admin Python SDK](https://firebase.google.com/docs/admin/setup)
+- [Download Firebase Admin Key](https://console.firebase.google.com/project/_/settings/serviceaccounts/adminsdk)
